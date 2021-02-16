@@ -55,7 +55,10 @@ class ServeCommand extends Command
                             : now()->addDays(30)->getTimestamp();
 
         $process = $this->startProcess();
-
+        
+        $url = "http://{$this->host()}:{$this->port()}";
+        shell_exec(((stripos(PHP_OS, "WIN") === 0) ? "explorer " : "xdg-open ") . $url);
+        
         while ($process->isRunning()) {
             if ($hasEnvironment) {
                 clearstatcache(false, $environmentFile);
